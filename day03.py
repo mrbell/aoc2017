@@ -1,7 +1,7 @@
 # Code for the 2017 Advent Of Code, day 3
 # http://adventofcode.com/2017
 # Michael Bell
-# 12/10/2017
+# 12/11/2017
 # Answers validated
 
 def count_steps(num):
