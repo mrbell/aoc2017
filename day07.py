@@ -4,6 +4,8 @@
 # 12/13/2017
 # Solutions passed!
 
+# NOTE: This is pretty sloppy. Might think about refactoring.
+
 class TreeNode(object):
     def __init__(self, name, weight):
         self.name = name
