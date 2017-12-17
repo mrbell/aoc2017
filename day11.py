@@ -8,6 +8,11 @@ Solutions passed
 
 
 def parse_steps(steps):
+    """
+    Given a comma separated list of steps ('n', 's', 'ne', 'se', 'nw', 'sw) 
+    as a string, return a list of the individual steps, e.g. convert 
+    'n,n,n' into ['n', 'n', 'n'].
+    """
     if not steps:
         steps = []
     elif isinstance(steps, str):
@@ -16,11 +21,20 @@ def parse_steps(steps):
 
 
 def count_min_steps(steps):
+    """
+    Given the set of STEPS along a hex grid, return the minimum number of 
+    steps required to reach the final position.
+    """
     steps = reduce_steps(steps)
     return len(steps)
 
 
 def balance_steps(steps, dir1, dir2):
+    """
+    Given opposing step directions DIR1 and DIR2, reduce the number of 
+    occurrences of each in the set STEPS by eliminating one occurrence of 
+    DIR1 for each of DIR2.
+    """
 
     steps_reduced = []
 
@@ -44,6 +58,10 @@ def balance_steps(steps, dir1, dir2):
 
 
 def replace_step_pairs(steps, dir_pair, new_dir):
+    """
+    Replace occurrences of the pairs of steps in DIR_PAIR with occurrences
+    of the single step in NEW_DIR in the set STEPS.
+    """
     dir1_steps = [step for step in steps if step == dir_pair[0]]
     dir2_steps = [step for step in steps if step == dir_pair[1]]
 
@@ -67,6 +85,12 @@ def replace_step_pairs(steps, dir_pair, new_dir):
     return other_steps
 
 def reduce_steps(steps):
+    """
+    Given a set of steps on a hex grid, return a reduced set of steps 
+    eliminating zero sum pairs (e.g. one step 's' cancels another step
+    'n') and replacing some pairs of steps with equivalent single steps
+    (e.g. 'ne' and 's' is equal to one step 'se').
+    """
 
     steps = parse_steps(steps)
 
@@ -96,23 +120,50 @@ def reduce_steps(steps):
     return steps
 
 
-def max_distance_from_start(steps):
+def faster_max_dist_from_start(steps):
     """
     Given a set of steps to take on a hex grid, return the maximum distance
     (in min steps from the origin) that was visited.
+
+    This is a slightly faster implementation than `max_distance_from_start`.
     """
 
     steps = parse_steps(steps)
 
     max_dist = -1
-    # max_dist_steps = -1
+
+    rolling_steps = []
+
+    for i, step in enumerate(steps):
+
+        rolling_steps.append(step)
+
+        rolling_steps = reduce_steps(rolling_steps)
+        min_steps = len(rolling_steps)
+
+        if min_steps > max_dist:
+            max_dist = min_steps
+    
+    return max_dist
+
+
+def max_distance_from_start(steps):
+    """
+    Given a set of steps to take on a hex grid, return the maximum distance
+    (in min steps from the origin) that was visited.
+
+    This is slow as hell. 
+    """
+
+    steps = parse_steps(steps)
+
+    max_dist = -1
 
     for i, step in enumerate(steps):
 
         min_steps = count_min_steps(steps[:(i+1)])
         if min_steps > max_dist:
             max_dist = min_steps
-            # max_dist_steps = i + 1
 
     return max_dist
 
@@ -122,6 +173,8 @@ with open('data/day11_input.txt', 'r') as f:
 
 if __name__ == '__main__':
     # TESTS
+
+    import time
 
     assert count_min_steps('') == 0
     assert balance_steps(['n', 'n', 's', 's'], 'n', 's') == []
@@ -145,4 +198,9 @@ if __name__ == '__main__':
     print('Tests passed!')
 
     print('Solution 1: {:}'.format(count_min_steps(PUZZLE_INPUT)))
+    t0 = time.time()
+    print('Solution 2: {:}'.format(faster_max_dist_from_start(PUZZLE_INPUT)))
+    print('    {:} s'.format(time.time() - t0))
+    t0 = time.time()
     print('Solution 2: {:}'.format(max_distance_from_start(PUZZLE_INPUT)))
+    print('    {:} s'.format(time.time() - t0))
