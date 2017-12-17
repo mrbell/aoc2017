@@ -4,6 +4,7 @@
 # 12/11/2017
 # Solutions passed
 
+
 def passphrase_is_valid(phrase, mode='basic'):
 
     words = phrase.split()
@@ -18,9 +19,10 @@ def passphrase_is_valid(phrase, mode='basic'):
                         return False
             return True
         else:
-            raise ArgumentError('Invalid mode {:}'.format(mode))
+            raise ValueError('Invalid mode {:}'.format(mode))
     else:
         return False
+
 
 def count_valid_passphrases(phrases, validator=None):
 
@@ -31,7 +33,7 @@ def count_valid_passphrases(phrases, validator=None):
     count = 0
 
     for phrase in phrase_list:
-        if len(phrase) == 0:
+        if not phrase:
             continue
         phrase = phrase.strip()
         if validator(phrase):
@@ -51,6 +53,7 @@ if __name__ == "__main__":
     assert passphrase_is_valid("a ab abc abd abf abj", 'strict')
     assert passphrase_is_valid("iiii oiii ooii oooi oooo", 'strict')
     assert not passphrase_is_valid("oiii ioii iioi iiio", 'strict')
+
     test_phrases = """aa bb cc dd ee
 aa bb cc dd aa
 aa bb cc dd aaa"""
@@ -58,8 +61,9 @@ aa bb cc dd aaa"""
 
     print("All tests passed!")
 
-    puzzle_input = open('day04_input.txt', 'r').read()
+    with open('data/day04_input.txt', 'r') as f:
+        puzzle_input = f.read()
+
     strict_validator = lambda x: passphrase_is_valid(x, 'strict')
     print("Solution 1: {:}".format(count_valid_passphrases(puzzle_input)))
-    print("Solution 2: {:}".format(count_valid_passphrases(puzzle_input,
-                                                           strict_validator)))
+    print("Solution 2: {:}".format(count_valid_passphrases(puzzle_input, strict_validator)))

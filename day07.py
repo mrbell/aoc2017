@@ -136,11 +136,11 @@ jptl (61)
 ugml (68) -> gyxo, ebii, jptl
 gyxo (61)
 cntj (57)'''
- 
-puzzle_input = open('day07_input.txt', 'r').read()
+
+with open('data/day07_input.txt', 'r') as f:
+    puzzle_input = f.read()
 
 if __name__ == '__main__':
-       
     tree = build_tree(test_program_list)
     assert tree.get_root().name == 'tknk'
     assert not tree.get_root().is_balanced()

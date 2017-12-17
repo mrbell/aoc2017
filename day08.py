@@ -90,7 +90,7 @@ a inc 1 if b < 5
 c dec -10 if a >= 1
 c inc -20 if c == 10'''
 
-with open('day08_input.txt', 'r') as f:
+with open('data/day08_input.txt', 'r') as f:
     puzzle_instructions = f.read().replace('\r', '')
 
 if __name__ == '__main__':

@@ -43,7 +43,8 @@ test_input2 = """5 9 2 8
 9 4 7 3
 3 8 6 5"""
 
-real_input = open('day02_input.txt', 'r').read()
+with open('data/day02_input.txt', 'r') as f:
+    real_input = f.read()
 
 if __name__ == "__main__":
     

@@ -45,7 +45,8 @@ if __name__ == "__main__":
 
     print("All tests passed!")
 
-    puzzle_input = open('day05_input.txt', 'r').read().replace('\n', ' ')
+    with open('data/day05_input.txt', 'r') as f:
+        puzzle_input = f.read().replace('\n', ' ')
 
     print("Solution 1: {:}".format(count_steps_to_exit(puzzle_input)))
     print("Solution 2: {:}".format(count_steps_to_exit(puzzle_input, 'complex')))
