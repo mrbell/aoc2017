@@ -1,6 +1,6 @@
 """
 Code for the 2017 Advent Of Code, day 12
-https://adventofcode.com/2017/day/11
+https://adventofcode.com/2017/day/12
 Michael Bell
 12/17/2017
 Solutions passed
