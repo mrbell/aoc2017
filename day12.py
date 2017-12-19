@@ -20,6 +20,9 @@ class Node(object):
         )
 
 
+def encode_node_listing(pid, connecting_pids):
+    return "{:} <-> {:}".format(str(pid), ", ".join([str(p) for p in connecting_pids]))
+
 def parse_node_listing(listing):
     """
     Split a node listing like 
@@ -140,6 +143,7 @@ if __name__ == '__main__':
     assert test_graph.get_group_containing(0).node_count == 6
     test_groups = test_graph.get_groups()
     assert len(test_groups) == 2
+    assert encode_node_listing(2, [4, 5]) == "2 <-> 4, 5"
 
     print('ALL TESTS PASSED!')
     
