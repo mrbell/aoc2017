@@ -26,6 +26,7 @@ def hex_to_bin(hex_string):
         bin_string += hex_char_to_bin(char)
     return bin_string
 
+
 def count_used_squares(key):
 
     used_square_count = 0
