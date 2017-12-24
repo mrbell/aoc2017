@@ -148,6 +148,8 @@ def get_surviving_particles(particle_defs):
         keep track of pwd changes from step to step, when all particles are diverging, stop
 
     There are 1K particles, so I would need to keep a 499K long pwd record
+
+    This isn't fast, but it works!
     """
 
     particle_defs = particle_defs.replace('\r', '').split('\n')
