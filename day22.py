@@ -139,5 +139,4 @@ if __name__ == '__main__':
     print('All tests passed!')
 
     print('Solution 1: {:}'.format(count_infections(PUZZLE_INPUT, 10000)))
-    # 5576046 IS TOO HIGH
     print('Solution 2: {:}'.format(count_infections_evolved(PUZZLE_INPUT, 10000000)))

@@ -3,7 +3,7 @@
 https://adventofcode.com/2017/day/23
 Michael Bell
 12/28/2017
-Solution 1 passed, working on solution 2
+Solutions passed
 """
 
 
@@ -114,7 +114,14 @@ if __name__ == '__main__':
     coproc = Coprocessor()
     print("Solution 1: {:}".format(coproc.execute_program(PUZZLE_INPUT)))
 
-    coproc = Coprocessor(False)
-    mul_invocations = coproc.execute_program(PUZZLE_INPUT)
-    print(mul_invocations)
-    print('Solution 2: {:}'.format(coproc.get_register('h')))
+    # For solution 2, I have analyzed the program and figured out what
+    # it does (counts non-primes between 107900 and 124900)
+    # So I'm just going to get the answer using a short piece of code
+    # that does the same thing. 
+    # See `data/day23_input_annotated.txt` for notes from my analysis
+    def is_prime(a):
+        return all(a % i for i in range(2, a))
+
+    print('Solution 2: {:}'.format(
+        sum(not is_prime(x) for x in range(107900, 124901, 17))
+    ))
